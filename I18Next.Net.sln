@@ -29,6 +29,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "I18Next.Net.Benchmarks", "t
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "I18Next.Net.Backends.Newtonsoft", "src\I18Next.Net.Backends.Newtonsoft\I18Next.Net.Backends.Newtonsoft.csproj", "{F6602AE5-0E92-4BB1-B92C-56EAC9BD11CC}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "I18Next.Net.Backends.Yaml", "src\I18Next.Net.Backends.Yaml\I18Next.Net.Backends.Yaml.csproj", "{F660EAE5-0E92-4BB1-B92C-56EAC9BDE1CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{F6602AE5-0E92-4BB1-B92C-56EAC9BD11CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6602AE5-0E92-4BB1-B92C-56EAC9BD11CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6602AE5-0E92-4BB1-B92C-56EAC9BD11CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F660EAE5-0E92-4BB1-B92C-56EAC9BDE1CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F660EAE5-0E92-4BB1-B92C-56EAC9BDE1CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F660EAE5-0E92-4BB1-B92C-56EAC9BDE1CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F660EAE5-0E92-4BB1-B92C-56EAC9BDE1CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
