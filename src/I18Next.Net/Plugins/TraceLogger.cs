@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Text;
-using I18Next.Net.Logging;
+using Microsoft.Extensions.Logging;
 
 namespace I18Next.Net.Plugins;
 
@@ -16,10 +16,18 @@ public class TraceLogger : ILogger
 
     private static readonly char[] FormatDelimiters = { ',', ':' };
 
+    /// <inheritdoc />
+    public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter) {
+        Log(logLevel, exception, formatter(state, exception));
+    }
+
     public bool IsEnabled(LogLevel logLevel)
     {
         return (int)LogLevel <= (int)logLevel;
     }
+
+    /// <inheritdoc />
+    public IDisposable BeginScope<TState>(TState state) => throw new NotImplementedException();
 
     public void Log(LogLevel logLevel, Exception exception, string message, params object[] args)
     {

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using I18Next.Net.Logging;
+using Microsoft.Extensions.Logging;
 
 namespace I18Next.Net.Plugins;
 

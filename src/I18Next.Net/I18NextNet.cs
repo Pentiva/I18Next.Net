@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using I18Next.Net.Backends;
 using I18Next.Net.Internal;
-using I18Next.Net.Logging;
+using Microsoft.Extensions.Logging;
 using I18Next.Net.Plugins;
 
 namespace I18Next.Net;

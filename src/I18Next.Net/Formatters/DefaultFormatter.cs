@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
-using I18Next.Net.Logging;
 using I18Next.Net.Plugins;
+using Microsoft.Extensions.Logging;
 
 namespace I18Next.Net.Formatters;
 
@@ -36,12 +36,12 @@ public class DefaultFormatter : IFormatter
         }
         catch (CultureNotFoundException ex)
         {
-            _logger.LogInformation(ex, "Unable to find a culture info for language \"{language}\". Using invariant culture for formatting the value.");
+            _logger.LogInformation(ex, "Unable to find a culture info for language \"{language}\". Using invariant culture for formatting the value.", language);
             return string.Format(CultureInfo.InvariantCulture, formatString, value);
         }
         catch (FormatException ex)
         {
-            _logger.LogWarning(ex, "The provided format string \"{format}\" is not compatible with the default .NET string formatting functionality. Check your format string or register a custom formatter to handle this format.");
+            _logger.LogWarning(ex, "The provided format string \"{format}\" is not compatible with the default .NET string formatting functionality. Check your format string or register a custom formatter to handle this format.", format);
             return value.ToString();
         }
     }

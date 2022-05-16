@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using I18Next.Net.Formatters;
 using I18Next.Net.Internal;
-using I18Next.Net.Logging;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 
 namespace I18Next.Net.Plugins;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using I18Next.Net.Backends;
 using I18Next.Net.Extensions.Configuration;
-using I18Next.Net.Logging;
+using Microsoft.Extensions.Logging;
 using I18Next.Net.Plugins;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -709,7 +709,7 @@ public class I18NextBuilder
         var msLogger = c.GetService<Microsoft.Extensions.Logging.ILogger>();
 
         if (msLogger != null)
-            return new DefaultExtensionsLogger(msLogger);
+            return msLogger;
 
         return new TraceLogger();
     }

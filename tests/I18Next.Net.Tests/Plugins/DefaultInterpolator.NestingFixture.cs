@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using FluentAssertions;
 using I18Next.Net.Internal;
-using I18Next.Net.Logging;
+using Microsoft.Extensions.Logging;
 using I18Next.Net.Plugins;
 using NSubstitute;
 using NUnit.Framework;
