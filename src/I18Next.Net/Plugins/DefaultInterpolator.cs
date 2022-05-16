@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using I18Next.Net.Formatters;
 using I18Next.Net.Internal;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
 
 namespace I18Next.Net.Plugins;
 
@@ -264,11 +265,36 @@ public class DefaultInterpolator : IInterpolator
         argsString = await InterpolateAsync(argsString, null, language, parentArgs);
         argsString = argsString.Replace('\'', '"');
 
-        IDictionary<string, object> args = JObject.Parse(argsString).ToObject<Dictionary<string, object>>();
+        IDictionary<string, object> args = JsonSerializer.Deserialize <Dictionary<string, object>>(argsString, new JsonSerializerOptions() {
+            Converters = {
+                new ObjectToInferredTypesConverter()
+            }
+        });
 
         if (parentArgs != null)
             args = parentArgs.MergeLeft(args);
 
         return args;
+    }
+
+    private class ObjectToInferredTypesConverter : JsonConverter<object> {
+        public override object Read(
+            ref Utf8JsonReader    reader,
+            Type                  typeToConvert,
+            JsonSerializerOptions options) => reader.TokenType switch {
+            JsonTokenType.True => true,
+            JsonTokenType.False => false,
+            JsonTokenType.Number when reader.TryGetInt64(out var l) => l,
+            JsonTokenType.Number => reader.GetDouble(),
+            JsonTokenType.String when reader.TryGetDateTime(out var datetime) => datetime,
+            JsonTokenType.String => reader.GetString()!,
+            _ => JsonDocument.ParseValue(ref reader).RootElement.Clone()
+        };
+
+        public override void Write(
+            Utf8JsonWriter        writer,
+            object                objectToWrite,
+            JsonSerializerOptions options) =>
+            JsonSerializer.Serialize(writer, objectToWrite, objectToWrite.GetType(), options);
     }
 }

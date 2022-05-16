@@ -12,6 +12,7 @@
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
     </ItemGroup>
     <ItemGroup>
+        <ProjectReference Include="..\..\src\I18Next.Net.Backends.Newtonsoft\I18Next.Net.Backends.Newtonsoft.csproj" />
         <ProjectReference Include="..\..\src\I18Next.Net\I18Next.Net.csproj" />
     </ItemGroup>
     <ItemGroup>

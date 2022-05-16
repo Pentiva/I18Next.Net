@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "I18Next.Net.Gettext", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "I18Next.Net.Benchmarks", "tests\I18Next.Net.Benchmarks\I18Next.Net.Benchmarks.csproj", "{28A8E334-B484-47BF-A46F-0142830C9951}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "I18Next.Net.Backends.Newtonsoft", "src\I18Next.Net.Backends.Newtonsoft\I18Next.Net.Backends.Newtonsoft.csproj", "{F6602AE5-0E92-4BB1-B92C-56EAC9BD11CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{28A8E334-B484-47BF-A46F-0142830C9951}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28A8E334-B484-47BF-A46F-0142830C9951}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28A8E334-B484-47BF-A46F-0142830C9951}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6602AE5-0E92-4BB1-B92C-56EAC9BD11CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6602AE5-0E92-4BB1-B92C-56EAC9BD11CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6602AE5-0E92-4BB1-B92C-56EAC9BD11CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6602AE5-0E92-4BB1-B92C-56EAC9BD11CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

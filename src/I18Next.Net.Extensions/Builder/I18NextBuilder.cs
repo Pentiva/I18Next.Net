@@ -584,7 +584,7 @@ public class I18NextBuilder
         AddSingletonIfNotPresent(DefaultLoggerFactory);
         AddSingletonIfNotPresent<IPluralResolver, DefaultPluralResolver>();
         AddSingletonIfNotPresent<ILanguageDetector>(DefaultLanguageDetectorFactory);
-        AddSingletonIfNotPresent<ITranslationBackend, JsonFileBackend>();
+        AddSingletonIfNotPresent<ITranslationBackend, XmlFileBackend>();
         AddSingletonIfNotPresent<ITranslator>(DefaultTranslatorFactory);
         AddSingletonIfNotPresent<IInterpolator>(DefaultInterpolatorFactory);
 
