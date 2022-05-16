@@ -19,9 +19,9 @@
         <DocumentationFile>bin\Release\I18Next.Net.ICU.xml</DocumentationFile>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="MessageFormat" Version="3.0.0"/>
+        <PackageReference Include="MessageFormat" Version="6.0.0" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\I18Next.Net\I18Next.Net.csproj"/>
+        <ProjectReference Include="..\I18Next.Net\I18Next.Net.csproj" />
     </ItemGroup>
 </Project>

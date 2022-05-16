@@ -21,11 +21,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "I18Next.Net.Abstractions", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.ConsoleApp.NetCore", "samples\Example.ConsoleApp.NetCore\Example.ConsoleApp.NetCore.csproj", "{4F2A9939-3351-465F-9E4C-12616F64A0CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.ConsoleApp.NetFramework", "samples\Example.ConsoleApp.NetFramework\Example.ConsoleApp.NetFramework.csproj", "{15DAA359-C831-4260-9F6F-6255B7A45110}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.ConsoleApp.NetFramework", "samples\Example.ConsoleApp.NetFramework\Example.ConsoleApp.NetFramework.csproj", "{15DAA359-C831-4260-9F6F-6255B7A45110}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "I18Next.Net.Gettext", "src\I18Next.Net.Gettext\I18Next.Net.Gettext.csproj", "{F5690CC5-1E6E-4327-987D-211BC54AE9AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "I18Next.Net.Benchmarks", "tests\I18Next.Net.Benchmarks\I18Next.Net.Benchmarks.csproj", "{28A8E334-B484-47BF-A46F-0142830C9951}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "I18Next.Net.Benchmarks", "tests\I18Next.Net.Benchmarks\I18Next.Net.Benchmarks.csproj", "{28A8E334-B484-47BF-A46F-0142830C9951}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +81,10 @@ Global
 		{28A8E334-B484-47BF-A46F-0142830C9951}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28A8E334-B484-47BF-A46F-0142830C9951}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28A8E334-B484-47BF-A46F-0142830C9951}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {78A7C10B-2EF0-40E5-86F6-F47AF86FC238}
 	EndGlobalSection
