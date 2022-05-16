@@ -207,24 +207,29 @@ public class DefaultTranslator : ITranslator
             return null;
         }
 
-        var needsPluralHandling = CheckForSpecialArg(args, "count", typeof(int), typeof(long)) && _pluralResolver.NeedsPlural(language);
+        var needsPluralHandling = CheckForSpecialArg(args, "count", typeof(int), typeof(long), typeof(decimal)) && _pluralResolver.NeedsPlural(language);
         var needsContextHandling = CheckForSpecialArg(args, "context", typeof(string));
 
         var finalKey = key;
         var possibleKeys = new List<string>();
         possibleKeys.Add(finalKey);
         var pluralSuffix = string.Empty;
+        var count = default(decimal?);
 
         if (needsPluralHandling)
         {
             _logger.LogDebug("Translation {ns}:{key} needs plural handling.", ns, key);
             
-            var count = (int) Convert.ChangeType(args["count"], typeof(int));
-            pluralSuffix = _pluralResolver.GetPluralSuffix(language, count);
+            var isOrdinal = CheckForSpecialArg(args, "ordinal", typeof(bool)) && (bool) Convert.ChangeType(args["ordinal"], typeof(bool));
+            count = (decimal) Convert.ChangeType(args["count"], typeof(decimal));
+            pluralSuffix = _pluralResolver.GetPluralSuffix(language, count.Value, isOrdinal);
 
             // Fallback for plural if context was not found
-            if (needsContextHandling)
+            if (needsContextHandling) {
                 possibleKeys.Add($"{finalKey}{pluralSuffix}");
+                if (count == 0)
+                    possibleKeys.Add($"{finalKey}_zero");
+            }
         }
 
         // Get key for context if needed
@@ -240,8 +245,9 @@ public class DefaultTranslator : ITranslator
         // Get key for plural if needed
         if (needsPluralHandling)
         {
-            finalKey = $"{finalKey}{pluralSuffix}";
-            possibleKeys.Add(finalKey);
+            possibleKeys.Add($"{finalKey}{pluralSuffix}");
+            if (count is 0)
+                possibleKeys.Add($"{finalKey}_zero");
         }
 
         string result = null;

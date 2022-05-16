@@ -10,8 +10,9 @@ public interface IPluralResolver
     /// </summary>
     /// <param name="language">The target language.</param>
     /// <param name="count">Count if items.</param>
+    /// <param name="isOrdinal"></param>
     /// <returns>Suffix to be used to look for plural handling.</returns>
-    string GetPluralSuffix(string language, int count);
+    string GetPluralSuffix(string language, decimal count, bool isOrdinal = false);
 
     /// <summary>
     ///     Checks whether a given language needs plural handling at all.
