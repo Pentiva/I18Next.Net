@@ -534,7 +534,7 @@ public class I18NextBuilder
 
         Services.AddSingleton<IStringLocalizerFactory, I18NextStringLocalizerFactory>();
         Services.AddTransient(typeof(IStringLocalizer<>), typeof(StringLocalizer<>));
-        Services.TryAddTransient(typeof(IStringLocalizer), c => c.GetRequiredService<IStringLocalizerFactory>().Create(null));
+        Services.TryAddTransient(typeof(IStringLocalizer), c => (c.GetRequiredService<IStringLocalizerFactory>() as I18NextStringLocalizerFactory)?.Create());
     }
 
     /// <summary>

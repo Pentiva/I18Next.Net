@@ -25,7 +25,7 @@ public class PolyglotInterpolator : IInterpolator
                 return n % 100 >= 11 ? 4 : 5;
             }
         },
-        { "chinese", n => 0 },
+        { "chinese", _ => 0 },
         { "german", n => n != 1 ? 1 : 0 },
         { "french", n => n > 1 ? 1 : 0 },
         {
@@ -43,7 +43,7 @@ public class PolyglotInterpolator : IInterpolator
                 if (n == 1)
                     return 0;
 
-                return n >= 2 && n <= 4 ? 1 : 2;
+                return n is >= 2 and <= 4 ? 1 : 2;
             }
         },
         {
@@ -74,9 +74,6 @@ public class PolyglotInterpolator : IInterpolator
 
     static PolyglotInterpolator()
     {
-        if (LanguageToTypeMap != null)
-            return;
-
         LanguageToTypeMap = new Dictionary<string, Func<int, int>>();
 
         lock (LanguageToTypeMap)
@@ -137,8 +134,7 @@ public class PolyglotInterpolator : IInterpolator
         if (source == null)
             return Task.FromResult((string) null);
 
-        if (language == null)
-            language = "en";
+        language ??= "en";
 
         var result = source;
         var languagePart = GetLanguagePart(language);
@@ -154,10 +150,7 @@ public class PolyglotInterpolator : IInterpolator
             {
                 var pluralIndex = pluralTypeFunc(smartCount);
 
-                if (pluralIndex < pluralForms.Length)
-                    result = pluralForms[pluralTypeFunc(smartCount)].Trim();
-                else
-                    result = pluralForms[0];
+                result = pluralIndex < pluralForms.Length ? pluralForms[pluralTypeFunc(smartCount)].Trim() : pluralForms[0];
             }
             else
             {
@@ -191,8 +184,7 @@ public class PolyglotInterpolator : IInterpolator
                     resultValue = formatter.Format(value, format, language);
             }
 
-            if (resultValue == null)
-                resultValue = value.ToString();
+            resultValue ??= value.ToString();
 
             result = result.ReplaceFirst(match.Value, resultValue);
         }

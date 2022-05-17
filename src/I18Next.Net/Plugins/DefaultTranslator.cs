@@ -99,10 +99,8 @@ public class DefaultTranslator : ITranslator
 
         var value = args[key];
 
-        for (var i = 0; i < allowedTypes.Length; i++)
+        foreach (var type in allowedTypes)
         {
-            var type = allowedTypes[i];
-
             if (value.GetType() == type)
                 return true;
         }
@@ -120,10 +118,10 @@ public class DefaultTranslator : ITranslator
         else
             replaceArgs = args;
 
-        if (AllowInterpolation && (!(args?.ContainsKey("interpolate") ?? false) || args["interpolate"] is bool interpolate && interpolate))
+        if (AllowInterpolation && (!(args?.ContainsKey("interpolate") ?? false) || args["interpolate"] is true))
             result = await _interpolator.InterpolateAsync(result, key, language, replaceArgs);
 
-        if (AllowNesting && (!(args?.ContainsKey("nest") ?? false) || args["nest"] is bool nest && nest) && _interpolator.CanNest(result))
+        if (AllowNesting && (!(args?.ContainsKey("nest") ?? false) || args["nest"] is true) && _interpolator.CanNest(result))
             result = await _interpolator.NestAsync(result, language, replaceArgs,
                 (lang2, key2, args2) => TranslateAsync(lang2, key2, args2, options));
 
@@ -150,9 +148,8 @@ public class DefaultTranslator : ITranslator
         }
 
         var localArgs = args["postProcess"];
-        var postProcessType = localArgs.GetType();
-        if (postProcessType.IsArray && postProcessType.HasElementType && postProcessType.GetElementType() == typeof(string))
-            return localArgs as string[];
+        if (localArgs is string[] strings)
+            return strings;
 
         return null;
     }
@@ -211,8 +208,7 @@ public class DefaultTranslator : ITranslator
         var needsContextHandling = CheckForSpecialArg(args, "context", typeof(string));
 
         var finalKey = key;
-        var possibleKeys = new List<string>();
-        possibleKeys.Add(finalKey);
+        var possibleKeys = new List<string> { finalKey };
         var pluralSuffix = string.Empty;
 
         if (needsPluralHandling)

@@ -24,19 +24,17 @@ public static class Verify
 
         public bool IsSatisfiedBy(T argument)
         {
-            using (var scope = new AssertionScope())
-            {
-                _assertion(argument);
+            using var scope = new AssertionScope();
+            _assertion(argument);
 
-                var failures = scope.Discard();
+            var failures = scope.Discard();
 
-                foreach (var x in failures)
-                    Trace.WriteLine(x);
+            foreach (var x in failures)
+                Trace.WriteLine(x);
 
-                var hasFailures = failures.Any();
+            var hasFailures = failures.Any();
 
-                return hasFailures == false;
-            }
+            return hasFailures == false;
         }
     }
 }

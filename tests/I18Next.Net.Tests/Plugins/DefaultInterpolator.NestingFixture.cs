@@ -76,7 +76,7 @@ public class DefaultInterpolator_NestingFixture
     [Test]
     public async Task NestAsync_NestingWithOnlyChildArgs_ShouldProvideChildArgs()
     {
-        var result = await _interpolator.NestAsync("Hello $t(test, { \"arg2\": \"value2\" })!", "en-US", null, (language, key, args) =>
+        var result = await _interpolator.NestAsync("Hello $t(test, { \"arg2\": \"value2\" })!", "en-US", null, (_, _, args) =>
         {
             args.Should().ContainKey("arg2");
             args["arg2"].Should().Be("value2");
@@ -92,7 +92,7 @@ public class DefaultInterpolator_NestingFixture
     {
         var parentArgs = new { arg1 = "value1" };
         var result = await _interpolator.NestAsync("Hello $t(test, { \"arg2\": \"value2\" })!", "en-US", parentArgs.ToDictionary(),
-            (language, key, args) =>
+            (_, _, args) =>
             {
                 args.Should().ContainKey("arg1");
                 args["arg1"].Should().Be("value1");
@@ -108,7 +108,7 @@ public class DefaultInterpolator_NestingFixture
     [Test]
     public async Task NestAsync_OneDirectRecursiveNesting_ShouldPreventTheLoopAndDoNothing()
     {
-        var result = await _interpolator.NestAsync("Hello $t(test)!", "en-US", null, (language, key, args) => Task.FromResult("$t(test)"));
+        var result = await _interpolator.NestAsync("Hello $t(test)!", "en-US", null, (_, _, _) => Task.FromResult("$t(test)"));
 
         result.Should().Be("Hello $t(test)!");
     }
@@ -124,7 +124,7 @@ public class DefaultInterpolator_NestingFixture
     [Test]
     public async Task NestAsync_OneNestingWithMissingValue_ShouldReturnTheSource()
     {
-        var result = await _interpolator.NestAsync("Hello $t(test)!", "en-US", null, (language, key, args) => Task.FromResult((string) null));
+        var result = await _interpolator.NestAsync("Hello $t(test)!", "en-US", null, (_, _, _) => Task.FromResult((string) null));
 
         result.Should().Be("Hello $t(test)!");
     }
@@ -133,7 +133,7 @@ public class DefaultInterpolator_NestingFixture
     public async Task NestAsync_OneNestingWithParentArgs_ShouldPassThroughArgs()
     {
         var parentArgs = new { arg1 = "value1" };
-        var result = await _interpolator.NestAsync("Hello $t(test)!", "en-US", parentArgs.ToDictionary(), (language, key, args) =>
+        var result = await _interpolator.NestAsync("Hello $t(test)!", "en-US", parentArgs.ToDictionary(), (_, _, args) =>
         {
             args.Should().ContainKey("arg1");
             args["arg1"].Should().Be("value1");
@@ -147,7 +147,7 @@ public class DefaultInterpolator_NestingFixture
     [Test]
     public async Task NestAsync_OneRecursiveNesting_ShouldPreventTheLoopAndDoNothing()
     {
-        var result = await _interpolator.NestAsync("Hello $t(test)!", "en-US", null, (language, key, args) => Task.FromResult("Oh no, $t(test)"));
+        var result = await _interpolator.NestAsync("Hello $t(test)!", "en-US", null, (_, _, _) => Task.FromResult("Oh no, $t(test)"));
 
         result.Should().Be("Hello $t(test)!");
     }
@@ -155,7 +155,7 @@ public class DefaultInterpolator_NestingFixture
     [Test]
     public async Task NestAsync_TwoNestingsWithOneMissingValue_ShouldNestOneTokenAndIgnoreTheMissingOne()
     {
-        var result = await _interpolator.NestAsync("Hello $t(test) $t(test2)!", "en-US", null, (language, key, args) =>
+        var result = await _interpolator.NestAsync("Hello $t(test) $t(test2)!", "en-US", null, (_, key, _) =>
         {
             if (key == "test")
                 return Task.FromResult((string) null);

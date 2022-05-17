@@ -17,8 +17,8 @@ public static class ObjectExtensions
         if (value == null)
             return dictionary;
 
-        if (value is IDictionary<string, object>)
-            return value as IDictionary<string, object>;
+        if (value is IDictionary<string, object> objects)
+            return objects;
 
         foreach (var property in GetProperties(value))
             dictionary.Add(property.Name, property.GetValue(value));
@@ -42,7 +42,7 @@ public static class ObjectExtensions
             .Where(prop =>
             {
                 if (prop.GetIndexParameters().Length == 0)
-                    return prop.GetMethod != (MethodInfo) null;
+                    return prop.GetMethod is not null;
 
                 return false;
             });

@@ -51,7 +51,7 @@ public class I18NextStringLocalizer : IStringLocalizer
     {
         object args = null;
 
-        if (arguments != null && arguments.Length > 0)
+        if (arguments is { Length: > 0 })
             args = arguments[0];
 
         if (_instance.DetectLanguageOnEachTranslation)

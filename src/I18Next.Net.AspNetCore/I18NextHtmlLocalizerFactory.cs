@@ -10,10 +10,7 @@ public class I18NextHtmlLocalizerFactory : IHtmlLocalizerFactory
 
     public I18NextHtmlLocalizerFactory(IStringLocalizerFactory localizerFactory)
     {
-        if (localizerFactory == null)
-            throw new ArgumentNullException(nameof(localizerFactory));
-
-        _factory = localizerFactory;
+        _factory = localizerFactory ?? throw new ArgumentNullException(nameof(localizerFactory));
     }
 
     public virtual IHtmlLocalizer Create(Type resourceSource)

@@ -56,7 +56,7 @@ public class DefaultInterpolator : IInterpolator
         return UseFastNestingMatch ? source.Contains(NestingPrefixPlain) : NestingRegex.IsMatch(source);
     }
 
-    public List<IFormatter> Formatters => _formatters ?? (_formatters = new List<IFormatter>());
+    public List<IFormatter> Formatters => _formatters ??= new List<IFormatter>();
 
     public virtual Task<string> InterpolateAsync(string source, string key, string language, IDictionary<string, object> args)
     {
@@ -121,10 +121,8 @@ public class DefaultInterpolator : IInterpolator
     protected virtual string Format(object value, string format, string language)
     {
         if (_formatters != null)
-            for (var i = 0; i < _formatters.Count; i++)
+            foreach (var formatter in _formatters)
             {
-                var formatter = _formatters[i];
-
                 if (formatter.CanFormat(value, format, language))
                     return formatter.Format(value, format, language);
             }
@@ -144,12 +142,10 @@ public class DefaultInterpolator : IInterpolator
 
         object lastObject = args;
 
-        for (var i = 0; i < keyParts.Length; i++)
+        foreach (var subKey in keyParts)
         {
             if (lastObject == null)
                 return null;
-
-            var subKey = keyParts[i];
 
             if (lastObject is IDictionary<string, object> dict)
             {
@@ -227,13 +223,7 @@ public class DefaultInterpolator : IInterpolator
     protected virtual string HandleRegexMatch(string source, string language, IDictionary<string, object> args, Match match)
     {
         var expression = match.Groups[1];
-        var value = GetValueForExpression(expression.Value, language, args);
-
-        if (value == null)
-            if (MissingValueHandler != null)
-                value = MissingValueHandler(source, match);
-            else
-                value = string.Empty;
+        var value = GetValueForExpression(expression.Value, language, args) ?? MissingValueHandler?.Invoke(source, match) ?? string.Empty;
 
         if (EscapeValues)
             value = EscapeValue(value);
@@ -245,13 +235,7 @@ public class DefaultInterpolator : IInterpolator
     protected virtual string HandleUnescapeRegexMatch(string source, string language, IDictionary<string, object> args, Match match)
     {
         var expression = match.Groups[1];
-        var value = GetValueForExpression(expression.Value, language, args);
-
-        if (value == null)
-            if (MissingValueHandler != null)
-                value = MissingValueHandler(source, match);
-            else
-                value = string.Empty;
+        var value = GetValueForExpression(expression.Value, language, args) ?? MissingValueHandler?.Invoke(source, match) ?? string.Empty;
 
         source = source.ReplaceFirst(match.Value, value);
         return source;

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace Example.WebApp;
 
-public class Program
+public static class Program
 {
     public static IWebHostBuilder CreateWebHostBuilder(string[] args)
     {

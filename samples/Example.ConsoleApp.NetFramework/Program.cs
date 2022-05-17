@@ -5,11 +5,11 @@ using I18Next.Net.Plugins;
 
 namespace Example.ConsoleApp.NetFramework
 {
-    internal class Program
+    internal static class Program
     {
         private static ITranslationBackend _backend;
 
-        public static void Main(string[] args)
+        public static void Main()
         {
             SetupBackend();
 

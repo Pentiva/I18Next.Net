@@ -12,6 +12,11 @@ public class I18NextStringLocalizerFactory : IStringLocalizerFactory
         _i18NextNet = i18NextNet;
     }
 
+    public IStringLocalizer Create()
+    {
+        return new I18NextStringLocalizer(_i18NextNet);
+    }
+
     public IStringLocalizer Create(Type resourceSource)
     {
         return new I18NextStringLocalizer(_i18NextNet);

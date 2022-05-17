@@ -661,7 +661,7 @@ public class DefaultTranslatorFixture
 
         var missingKeyCalls = 0;
 
-        _translator.MissingKey += (sender, args) =>
+        _translator.MissingKey += (_, args) =>
         {
             args.Key.Should().Be("test");
             args.Namespace.Should().Be("test");
@@ -697,7 +697,7 @@ public class DefaultTranslatorFixture
 
         var missingKeyCalls = 0;
 
-        _translator.MissingKey += (sender, args) =>
+        _translator.MissingKey += (_, args) =>
         {
             args.Key.Should().Be("test");
             args.Namespace.Should().Be("test");
@@ -736,7 +736,7 @@ public class DefaultTranslatorFixture
 
         var missingKeyCalls = 0;
 
-        _translator.MissingKey += (sender, args) =>
+        _translator.MissingKey += (_, args) =>
         {
             args.Key.Should().Be("test");
             args.Namespace.Should().Be("test");
@@ -833,7 +833,7 @@ public class DefaultTranslatorFixture
 
         var missingKeyCalls = 0;
 
-        _translator.MissingKey += (sender, args) =>
+        _translator.MissingKey += (_, args) =>
         {
             args.Key.Should().Be("test");
             args.Namespace.Should().Be("test");

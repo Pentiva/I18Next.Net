@@ -40,7 +40,7 @@ public class DefaultInterpolator_InterpolationFixture
     [Test]
     public async Task InterpolateAsync_PlaceholderAndMissingArgsWithMissingValueHandler_ShouldCallTheMissingValueHandler()
     {
-        _interpolator.MissingValueHandler = (s, match) => "<missing>";
+        _interpolator.MissingValueHandler = (_, _) => "<missing>";
 
         var result = await _interpolator.InterpolateAsync("Hello {{name}}!", "testkey", "en-US", null);
 
@@ -59,7 +59,7 @@ public class DefaultInterpolator_InterpolationFixture
     [Test]
     public async Task InterpolateAsync_PlaceholderAndMissingValueWithMissingValueHandler_ShouldCallTheMissingValueHandler()
     {
-        _interpolator.MissingValueHandler = (s, match) => "<missing>";
+        _interpolator.MissingValueHandler = (_, _) => "<missing>";
 
         var args = new { };
         var result = await _interpolator.InterpolateAsync("Hello {{name}}!", "testkey", "en-US", args.ToDictionary());

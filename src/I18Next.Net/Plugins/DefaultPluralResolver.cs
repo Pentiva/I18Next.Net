@@ -18,15 +18,15 @@ public class DefaultPluralResolver : IPluralResolver
             // @formatter:off
             { 1, n => n > 1 ? 1 : 0 },
             { 2, n => n != 1 ? 1 : 0 },
-            { 3, n => 0 },
+            { 3, _ => 0 },
             { 4, n => n % 10 == 1 && n % 100 != 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2 },
             { 5, n => n == 0 ? 0 : n == 1 ? 1 : n == 2 ? 2 : n % 100 >= 3 && n % 100 <= 10 ? 3 : n % 100 >= 11 ? 4 : 5 },
-            { 6, n => n == 1 ? 0 : n >= 2 && n <= 4 ? 1 : 2 },
+            { 6, n => n == 1 ? 0 : n is >= 2 and <= 4 ? 1 : 2 },
             { 7, n => n == 1 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2 },
             { 8, n => n == 1 ? 0 : n == 2 ? 1 : n != 8 && n != 11 ? 2 : 3 },
             { 9, n => n >= 2 ? 1 : 0 },
             { 10, n => n == 1 ? 0 : n == 2 ? 1 : n < 7 ? 2 : n < 11 ? 3 : 4 },
-            { 11, n => n == 1 || n == 11 ? 0 : n == 2 || n == 12 ? 1 : n > 2 && n < 20 ? 2 : 3 },
+            { 11, n => n == 1 || n == 11 ? 0 : n == 2 || n == 12 ? 1 : n is > 2 and < 20 ? 2 : 3 },
             { 12, n => n % 10 != 1 || n % 100 == 11 ? 1 : 0 },
             { 13, n => n != 0 ? 1 : 0 },
             { 14, n => n == 1 ? 0 : n == 2 ? 1 : n == 3 ? 2 : 3 },
@@ -107,9 +107,6 @@ public class DefaultPluralResolver : IPluralResolver
     {
         lock (PluralizationSets)
         {
-            if (Rules != null)
-                return;
-
             Rules = new ConcurrentDictionary<string, PluralizationRule>();
 
             foreach (var set in PluralizationSets)
