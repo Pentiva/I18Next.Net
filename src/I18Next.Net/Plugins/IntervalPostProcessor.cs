@@ -42,7 +42,7 @@ public class IntervalPostProcessor : IPostProcessor
         return found ?? (UseFirstAsFallback ? GetFirstMatchValue(intervals[0]) : value);
     }
 
-    private bool CheckIntervalMatch(string value, int count)
+    private static bool CheckIntervalMatch(string value, int count)
     {
         if (value.IndexOf('-') > -1)
         {
@@ -81,7 +81,7 @@ public class IntervalPostProcessor : IPostProcessor
         return false;
     }
 
-    private string GetFirstMatchValue(string interval)
+    private static string GetFirstMatchValue(string interval)
     {
         var match = IntervalRegex.Match(interval);
 

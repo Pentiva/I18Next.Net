@@ -131,7 +131,7 @@ public class DefaultTranslator : ITranslator
         return result;
     }
 
-    private string[] GetPostProcessorKeys(IDictionary<string, object> args)
+    private static string[] GetPostProcessorKeys(IDictionary<string, object> args)
     {
         if (args == null)
             return null;

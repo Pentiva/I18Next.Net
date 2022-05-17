@@ -29,13 +29,13 @@ public class TraceLogger : ILogger
     /// <inheritdoc />
     public IDisposable BeginScope<TState>(TState state) => throw new NotImplementedException();
 
-    public void Log(LogLevel logLevel, Exception exception, string message, params object[] args)
+    public static void Log(LogLevel logLevel, Exception exception, string message, params object[] args)
     {
         var newMessage = message + Environment.NewLine + exception;
         Log(logLevel, newMessage, args);
     }
 
-    public void Log(LogLevel logLevel, string message, params object[] args)
+    public static void Log(LogLevel logLevel, string message, params object[] args)
     {
         var format = ConvertFormat(message);
         switch (logLevel)
@@ -55,7 +55,7 @@ public class TraceLogger : ILogger
         }
     }
 
-    private string ConvertFormat(string format)
+    private static string ConvertFormat(string format)
     {
         var valueNames = new List<string>();
         var sb = new StringBuilder();

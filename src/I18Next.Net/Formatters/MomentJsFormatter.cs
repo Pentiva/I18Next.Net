@@ -142,7 +142,7 @@ public class MomentJsFormatter : IFormatter
         return (month + 2) / 3;
     }
 
-    private string GetSpecialTokenValue(DateTimeOffset value, string token, CultureInfo culture)
+    private static string GetSpecialTokenValue(DateTimeOffset value, string token, CultureInfo culture)
     {
         switch (token)
         {
@@ -180,7 +180,7 @@ public class MomentJsFormatter : IFormatter
         return token;
     }
 
-    private string GetWeekTokenValue(DateTimeOffset value, string token, CultureInfo culture)
+    private static string GetWeekTokenValue(DateTimeOffset value, string token, CultureInfo culture)
     {
         switch (token)
         {
@@ -213,7 +213,7 @@ public class MomentJsFormatter : IFormatter
         return token;
     }
 
-    private string ReplaceTokens(DateTimeOffset value, string format, CultureInfo culture)
+    private static string ReplaceTokens(DateTimeOffset value, string format, CultureInfo culture)
     {
         var lastPosition = 0;
         Match localMatch;
@@ -284,7 +284,7 @@ public class MomentJsFormatter : IFormatter
         return output;
     }
 
-    private string SwapStringPart(string source, int index, int length, string newPart)
+    private static string SwapStringPart(string source, int index, int length, string newPart)
     {
         var before = source[..index];
         var after = source[(index + length)..];
