@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using I18Next.Net.Internal;
@@ -161,7 +162,7 @@ public class PolyglotInterpolator : IInterpolator
         // Interpolate: Creates a `RegExp` object for each interpolation placeholder.
         var matches = TokenRegex.Matches(result);
 
-        foreach (Match match in matches)
+        foreach (var match in matches.Cast<Match>())
         {
             var expression = match.Groups[0].Value;
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Text.RegularExpressions;
 using I18Next.Net.Internal;
 using I18Next.Net.Plugins;
@@ -252,7 +253,7 @@ public class MomentJsFormatter : IFormatter
         var matches = TokenRegex.Matches(format);
         var output = string.Empty;
 
-        foreach (Match match in matches)
+        foreach (var match in matches.Cast<Match>())
         {
             if (match.Value.StartsWith("["))
             {
