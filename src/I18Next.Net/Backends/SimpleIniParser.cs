@@ -71,7 +71,7 @@ public class SimpleIniParser
             if (line.StartsWith("[", StringComparison.Ordinal) && line.EndsWith("]", StringComparison.Ordinal))
             {
                 currentSection = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
-                var sectionTitle = line.Substring(1, line.LastIndexOf("]", StringComparison.Ordinal) - 1).Trim();
+                var sectionTitle = line[1..line.LastIndexOf("]", StringComparison.Ordinal) ].Trim();
                 _entries[sectionTitle] = currentSection;
                 continue;
             }
@@ -83,11 +83,11 @@ public class SimpleIniParser
             }
             else
             {
-                var key = line.Substring(0, idx).Trim();
-                var value = line.Substring(idx + 1).Trim();
+                var key = line[..idx].Trim();
+                var value = line[(idx + 1)..].Trim();
 
                 if (value.StartsWith("\"", StringComparison.Ordinal))
-                    currentSection[key] = value.Substring(1, value.Length - 2);
+                    currentSection[key] = value[1..^1];
                 else
                     currentSection[key] = value;
             }

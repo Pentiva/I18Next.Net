@@ -40,7 +40,7 @@ public class HierarchicalTranslationTreeBuilder : ITranslationTreeBuilder
             }
         }
 
-        parentGroup.Add(parts[parts.Length - 1], text);
+        parentGroup.Add(parts[^1], text);
     }
 
     public ITranslationTree Build()

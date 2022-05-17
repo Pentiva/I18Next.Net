@@ -19,6 +19,7 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="System.Text.Json" Version="6.0.3" />
+        <PackageReference Include="IndexRange" Version="1.0.1" Condition="$(TargetFramework.StartsWith('netstandard2.0'))" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\I18Next.Net.Abstractions\I18Next.Net.Abstractions.csproj" />

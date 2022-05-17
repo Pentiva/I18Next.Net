@@ -196,7 +196,7 @@ public class DefaultPluralResolver : IPluralResolver
         if (index == -1)
             return language;
 
-        return language.Substring(0, index);
+        return language[..index];
     }
 
     private static PluralizationRule GetRule(string language)

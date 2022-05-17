@@ -70,8 +70,8 @@ public class DefaultTranslator : ITranslator
 
         if (key.IndexOf(':') > -1)
         {
-            actualNamespace = key.Substring(0, key.IndexOf(':'));
-            key = key.Substring(key.IndexOf(':') + 1);
+            actualNamespace = key[..key.IndexOf(':')];
+            key = key[(key.IndexOf(':') + 1)..];
         }
         else
         {

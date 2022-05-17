@@ -204,6 +204,6 @@ public class PolyglotInterpolator : IInterpolator
         if (index == -1)
             return language;
 
-        return language.Substring(0, index);
+        return language[..index];
     }
 }

@@ -20,5 +20,6 @@
     </PropertyGroup>
     <ItemGroup>
         <ProjectReference Include="..\I18Next.Net\I18Next.Net.csproj"/>
+        <PackageReference Include="IndexRange" Version="1.0.1" Condition="$(TargetFramework.StartsWith('netstandard2.0'))" />
     </ItemGroup>
 </Project>

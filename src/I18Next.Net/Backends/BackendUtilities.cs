@@ -18,6 +18,6 @@ public static class BackendUtilities
         if (index == -1)
             return language;
 
-        return language.Substring(0, index);
+        return language[..index];
     }
 }

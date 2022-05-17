@@ -10,7 +10,11 @@ public static class StringExtensions
         if (pos < 0)
             return text;
 
-        return text.Substring(0, pos) + replace + text.Substring(pos + search.Length);
+        #if NET6_0_OR_GREATER
+        return string.Concat(text.AsSpan(0, pos), replace, text.AsSpan(pos + search.Length));
+        #else
+        return text[..pos] + replace + text[(pos + search.Length)..];
+        #endif
     }
 
     public static string[] Split(this string str, string splitter, int count, StringSplitOptions options)
