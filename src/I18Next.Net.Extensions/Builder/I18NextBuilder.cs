@@ -270,64 +270,6 @@ public class I18NextBuilder
         return this;
     }
 
-
-    /// <summary>
-    ///     Registers the provided instance of a logger plugin.
-    /// </summary>
-    /// <remarks>
-    ///     <para>
-    ///         Note: The configuring I18Next instance can only use one logger at a time. By default the last registered
-    ///         logger will be used.
-    ///     </para>
-    /// </remarks>
-    /// <param name="backend">The logger instance.</param>
-    /// <returns>The current I18Next builder instance.</returns>
-    public I18NextBuilder AddLogger(ILogger backend)
-    {
-        Services.AddSingleton(backend);
-
-        return this;
-    }
-
-    /// <summary>
-    ///     Registers a new logger plugin of the given type.
-    /// </summary>
-    /// <remarks>
-    ///     <para>
-    ///         Note: The configuring I18Next instance can only use one logger at a time. By default the last registered
-    ///         logger will be used.
-    ///     </para>
-    /// </remarks>
-    /// <typeparam name="T">The logger plugin type.</typeparam>
-    /// <returns>The current I18Next builder instance.</returns>
-    public I18NextBuilder AddLogger<T>()
-        where T : class, ILogger
-    {
-        Services.AddSingleton<ILogger, T>();
-
-        return this;
-    }
-
-    /// <summary>
-    ///     Registers a new logger plugin using a factory function.
-    /// </summary>
-    /// <remarks>
-    ///     <para>
-    ///         Note: The configuring I18Next instance can only use one logger at a time. By default the last registered
-    ///         logger will be used.
-    ///     </para>
-    /// </remarks>
-    /// <param name="factory">Logger plugin factory function.</param>
-    /// <typeparam name="T">The logger plugin type.</typeparam>
-    /// <returns>The current I18Next builder instance.</returns>
-    public I18NextBuilder AddLogger<T>(Func<IServiceProvider, T> factory)
-        where T : class, ILogger
-    {
-        Services.AddSingleton<ILogger, T>(factory);
-
-        return this;
-    }
-
     /// <summary>
     ///     Registers the provided instance of a missing key handler plugin.
     /// </summary>
@@ -581,7 +523,6 @@ public class I18NextBuilder
     /// </summary>
     public void Build()
     {
-        AddSingletonIfNotPresent(DefaultLoggerFactory);
         AddSingletonIfNotPresent<IPluralResolver, DefaultPluralResolver>();
         AddSingletonIfNotPresent<ILanguageDetector>(DefaultLanguageDetectorFactory);
         AddSingletonIfNotPresent<ITranslationBackend, XmlFileBackend>();
@@ -702,16 +643,6 @@ public class I18NextBuilder
         var options = c.GetRequiredService<IOptions<I18NextOptions>>();
 
         return new DefaultLanguageDetector(options.Value.DefaultLanguage);
-    }
-
-    private static ILogger DefaultLoggerFactory(IServiceProvider c)
-    {
-        var msLogger = c.GetService<Microsoft.Extensions.Logging.ILogger>();
-
-        if (msLogger != null)
-            return msLogger;
-
-        return new TraceLogger();
     }
 
     private static DefaultTranslator DefaultTranslatorFactory(IServiceProvider c)
