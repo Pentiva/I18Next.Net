@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
@@ -241,6 +242,7 @@ public class DefaultInterpolator : IInterpolator
         return source;
     }
 
+    [UnconditionalSuppressMessage("ReflectionAnalysis", "IL2026", Justification = "Json serializer on uses primitive types, and JsonDocument, which should be referenced by `ObjectToInferredTypesConverter`.")]
     protected virtual async Task<IDictionary<string, object>> ParseNestedArgsAsync(
         string argsString,
         string language,
@@ -278,7 +280,7 @@ public class DefaultInterpolator : IInterpolator
         public override void Write(
             Utf8JsonWriter        writer,
             object                objectToWrite,
-            JsonSerializerOptions options) =>
-            JsonSerializer.Serialize(writer, objectToWrite, objectToWrite.GetType(), options);
+            JsonSerializerOptions options) => throw new NotImplementedException("This should never need to write.");
+            //JsonSerializer.Serialize(writer, objectToWrite, objectToWrite.GetType(), options);
     }
 }

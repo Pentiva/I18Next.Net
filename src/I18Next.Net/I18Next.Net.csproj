@@ -19,6 +19,7 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="System.Text.Json" Version="6.0.3" />
+        <Compile Remove="Internal\UnconditionalSuppressMessageAttribute.cs" Condition="'$(TargetFramework.TrimEnd(`0123456789.`))' != 'netstandard'" />
         <PackageReference Include="IndexRange" Version="1.0.1" Condition="$(TargetFramework.StartsWith('netstandard2.0'))" />
     </ItemGroup>
     <ItemGroup>
