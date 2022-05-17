@@ -32,8 +32,6 @@ public class InMemoryBackend : ITranslationBackend
             throw new ArgumentException("Namespace cannot be null, empty or whitespace string.", nameof(@namespace));
         if (string.IsNullOrWhiteSpace(key))
             throw new ArgumentException("Key cannot be null, empty or whitespace string.", nameof(key));
-        if (value == null)
-            throw new ArgumentNullException(nameof(value));
 
         var treeKey = language + "_" + @namespace;
 
@@ -43,6 +41,6 @@ public class InMemoryBackend : ITranslationBackend
             _namespaces.Add(treeKey, nsDict);
         }
 
-        nsDict[key] = value;
+        nsDict[key] = value ?? throw new ArgumentNullException(nameof(value));
     }
 }

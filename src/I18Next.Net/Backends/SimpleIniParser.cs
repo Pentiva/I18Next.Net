@@ -24,7 +24,7 @@ public class SimpleIniParser
     public string[] GetKeys(string section)
     {
         if (!_entries.ContainsKey(section))
-            return new string[0];
+            return Array.Empty<string>();
 
         return _entries[section].Keys.ToArray();
     }

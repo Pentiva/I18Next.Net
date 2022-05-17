@@ -7,7 +7,7 @@ namespace I18Next.Net.Internal;
 // Like mentioned here https://stackoverflow.com/questions/15302083/timezone-abbreviations
 public class TimeZoneData
 {
-    public static TimeZoneData[] DefaultTimeZones =
+    private static readonly TimeZoneData[] DefaultTimeZones =
     {
         new("A", "Alpha Time Zone", "Military", +1, 0),
         new("ACDT", "Australian Central Daylight Time", "Australia", +10, 30),

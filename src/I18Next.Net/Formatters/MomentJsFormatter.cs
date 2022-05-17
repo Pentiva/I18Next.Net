@@ -98,7 +98,7 @@ public class MomentJsFormatter : IFormatter
 
     public bool CanFormat(object value, string format, string language)
     {
-        return value is DateTime || value is DateTimeOffset;
+        return value is DateTime or DateTimeOffset;
     }
 
     public string Format(object value, string format, string language)
@@ -122,21 +122,19 @@ public class MomentJsFormatter : IFormatter
         if (num <= 0)
             return num.ToString();
 
-        switch (num % 100)
+        return (num % 100) switch
         {
-            case 11:
-            case 12:
-            case 13:
-                return num + "th";
-        }
-
-        switch (num % 10)
-        {
-            case 1:  return num + "st";
-            case 2:  return num + "nd";
-            case 3:  return num + "rd";
-            default: return num + "th";
-        }
+            11 => num + "th",
+            12 => num + "th",
+            13 => num + "th",
+            _ => (num % 10) switch
+            {
+                1 => num + "st",
+                2 => num + "nd",
+                3 => num + "rd",
+                _ => num + "th"
+            }
+        };
     }
 
     private static int GetQuarter(int month)
@@ -191,12 +189,12 @@ public class MomentJsFormatter : IFormatter
             case "ww":
                 var week = culture.Calendar.GetWeekOfYear(value.DateTime, CalendarWeekRule.FirstDay, culture.DateTimeFormat.FirstDayOfWeek);
 
-                switch (token)
+                return token switch
                 {
-                    case "ww": return week.ToString("00");
-                    case "wo": return AddOrdinal(week);
-                    default:   return week.ToString();
-                }
+                    "ww" => week.ToString("00"),
+                    "wo" => AddOrdinal(week),
+                    _ => week.ToString()
+                };
 
             case "W":
             case "Wo":
@@ -204,12 +202,12 @@ public class MomentJsFormatter : IFormatter
                 var weekIso = culture.Calendar.GetWeekOfYear(value.DateTime, culture.DateTimeFormat.CalendarWeekRule,
                     culture.DateTimeFormat.FirstDayOfWeek);
 
-                switch (token)
+                return token switch
                 {
-                    case "WW": return weekIso.ToString("00");
-                    case "Wo": return AddOrdinal(weekIso);
-                    default:   return weekIso.ToString();
-                }
+                    "WW" => weekIso.ToString("00"),
+                    "Wo" => AddOrdinal(weekIso),
+                    _ => weekIso.ToString()
+                };
         }
 
         return token;
@@ -237,7 +235,7 @@ public class MomentJsFormatter : IFormatter
                     continue;
                 }
 
-                var tokenValue = localMatch.Value.Substring(1);
+                var tokenValue = localMatch.Value[1..];
                 format = SwapStringPart(format, localMatch.Index, localMatch.Length, $"[{tokenValue}]");
                 lastPosition += tokenValue.Length + 2;
                 continue;
@@ -258,13 +256,13 @@ public class MomentJsFormatter : IFormatter
         {
             if (match.Value.StartsWith("["))
             {
-                output += match.Value.Substring(1, match.Value.Length - 2);
+                output += match.Value[1..^1];
                 continue;
             }
 
             if (match.Value.StartsWith("\\"))
             {
-                output += match.Value.Substring(1);
+                output += match.Value[1..];
                 continue;
             }
 
@@ -288,8 +286,8 @@ public class MomentJsFormatter : IFormatter
 
     private string SwapStringPart(string source, int index, int length, string newPart)
     {
-        var before = source.Substring(0, index);
-        var after = source.Substring(index + length);
+        var before = source[..index];
+        var after = source[(index + length)..];
 
         return $"{before}{newPart}{after}";
     }

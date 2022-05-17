@@ -80,8 +80,8 @@ public class PseudoLocalizationOptions
         get => _letterMultiplier;
         set
         {
-            if (value < 1 || value > 100)
-                throw new ArgumentOutOfRangeException();
+            if (value is < 1 or > 100)
+                throw new ArgumentOutOfRangeException(nameof(value));
             
             _letterMultiplier = value;
         }

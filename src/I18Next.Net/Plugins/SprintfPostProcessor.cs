@@ -37,7 +37,7 @@ public class SprintfPostProcessor : IPostProcessor
 
         // TODO Add processing of property path
         // 'Hello %(users[0].name)s, %(users[1].name)s and %(users[2].name)s'
-        input = Regex.Replace(input, "%.", _ => $"{{{(++i).ToString()}}}");
+        input = Regex.Replace(input, "%.", _ => $"{{{++i}}}");
 
         return string.Format(input, args);
     }

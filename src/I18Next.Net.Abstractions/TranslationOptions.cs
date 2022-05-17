@@ -12,7 +12,7 @@ public class TranslationOptions
         set
         {
             if (string.IsNullOrWhiteSpace(value))
-                throw new ArgumentException(nameof(value));
+                throw new ArgumentException($"{nameof(DefaultNamespace)} cannot be blank.", nameof(value));
 
             _defaultNamespace = value;
         }

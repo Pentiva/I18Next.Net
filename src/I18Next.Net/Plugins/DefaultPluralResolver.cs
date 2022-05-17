@@ -26,14 +26,14 @@ public class DefaultPluralResolver : IPluralResolver
             { 8, n => n == 1 ? 0 : n == 2 ? 1 : n != 8 && n != 11 ? 2 : 3 },
             { 9, n => n >= 2 ? 1 : 0 },
             { 10, n => n == 1 ? 0 : n == 2 ? 1 : n < 7 ? 2 : n < 11 ? 3 : 4 },
-            { 11, n => n == 1 || n == 11 ? 0 : n == 2 || n == 12 ? 1 : n is > 2 and < 20 ? 2 : 3 },
+            { 11, n => n switch { 1 or 11 => 0, 2 or 12 => 1, > 2 and < 20 => 2, _ => 3 } },
             { 12, n => n % 10 != 1 || n % 100 == 11 ? 1 : 0 },
             { 13, n => n != 0 ? 1 : 0 },
-            { 14, n => n == 1 ? 0 : n == 2 ? 1 : n == 3 ? 2 : 3 },
+            { 14, n => n switch { 1 => 0, 2 => 1, 3 => 2, _ => 3 } },
             { 15, n => n % 10 == 1 && n % 100 != 11 ? 0 : n % 10 >= 2 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2 },
             { 16, n => n % 10 == 1 && n % 100 != 11 ? 0 : n != 0 ? 1 : 2 },
             { 17, n => n == 1 || n % 10 == 1 ? 0 : 1 },
-            { 18, n => n == 0 ? 0 : n == 1 ? 1 : 2 },
+            { 18, n => n switch { 0 => 0, 1 => 1, _ => 2} },
             { 19, n => n == 1 ? 0 : n == 0 || n % 100 > 1 && n % 100 < 11 ? 1 : n % 100 > 10 && n % 100 < 20 ? 2 : 3 },
             { 20, n => n == 1 ? 0 : n == 0 || n % 100 > 0 && n % 100 < 20 ? 1 : 2 },
             { 21, n => n % 100 == 1 ? 1 : n % 100 == 2 ? 2 : n % 100 == 3 || n % 100 == 4 ? 3 : 0 }
@@ -161,7 +161,7 @@ public class DefaultPluralResolver : IPluralResolver
                     return string.Empty;
 
                 if (suffixNumber > 2)
-                    return $"_plural_{suffixNumber.ToString()}";
+                    return $"_plural_{suffixNumber}";
 
                 return $"_{suffix}";
 

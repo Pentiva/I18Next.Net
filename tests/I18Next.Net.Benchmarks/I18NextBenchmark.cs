@@ -12,8 +12,8 @@ namespace I18Next.Net.Benchmarks;
 [MarkdownExporter, AsciiDocExporter, HtmlExporter, CsvExporter, RPlotExporter]
 public class I18NextBenchmark
 {
-    private InMemoryBackend _backend;
-    private I18NextNet _i18Next;
+    private          InMemoryBackend _backend;
+    private readonly I18NextNet      _i18Next;
 
     public I18NextBenchmark()
     {
